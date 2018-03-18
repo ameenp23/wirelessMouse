@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = 'swelab@api-7156583024019430389-16810.iam.gserviceaccount.com'
+            pk12File = file('Google Play Android Developer-1e290cae804a.p12')
+        }
+    }
     defaultConfig {
         applicationId "com.vrjco.v.os_project"
         minSdkVersion 21
@@ -10,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
     buildTypes {
         release {
@@ -19,8 +27,16 @@ android {
     }
 }
 
+play {
+    // ...
+    track = 'production' // or 'rollout' or 'beta' or 'alpha'
+    userFraction = 0.2 // only necessary for 'rollout', in this case default is 0.1 (10% of the target)
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
