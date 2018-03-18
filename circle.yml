@@ -1,0 +1,11 @@
+deployment:
+  production: # just a label; label names are completely up to you
+    branch: master
+    commands:
+      - ./gradlew publishApkRelease
+        -Dorg.gradle.project.track=production
+  beta:
+    branch: develop
+    commands:
+      - ./gradlew publishApkRelease
+        -Dorg.gradle.project.track=beta
